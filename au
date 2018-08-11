@@ -1,0 +1,2 @@
+BEGIN{RS="\r";timestr=strftime("%F",systime());print "use stock;"}
+$2~/[123456789]/{print "INSERT ",$1,"VALUE ('",timestr,"',",$3,",",$2,",",$4,",",$5,",",$6,",",$7,");"}
