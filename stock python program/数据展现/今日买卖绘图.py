@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import matplotlib.finance as finan
 import pandas as pd
@@ -163,7 +165,7 @@ class candlestickploter:
         self.ax2.bar(self.riqi[self.neu],self.volume[self.neu],color='b',width=1,align='center')
 
         self.ax2.set_ylim(0,max(self.volume)+1)
-         self.ax2.set_xlim(0,self.InfoRow+1)
+        self.ax2.set_xlim(0,self.InfoRow+1)
         self.fig.canvas.draw()       
       
     def __call__(self, event):

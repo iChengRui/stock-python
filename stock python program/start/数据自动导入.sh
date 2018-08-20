@@ -16,12 +16,13 @@ then
   exit 1
 fi
 
-##确定有昨日的数据
+##确定有昨日的数据，昨天的日K线文件的位置
 filename="/home/acer/桌面/股票/InsertValue.csv"
 if [ -e  $filename ]
 then
 rm -f $filename
 fi
+##今天日K线的位置
 filename="/home/acer/桌面/股票/Table.xls"
 filetime=`stat -c %Y "$filename"`
 nowtime=`date +%s`
@@ -35,8 +36,8 @@ fi
 ##变更它的名字
 #mv $filename ${filename/%Table.xls/InsertValue.csv}
 #################################################
-##利用程序将将数据格式化并变更其文件名
-gawk -f au "$filename" >"${filename/%Table.xls/InsertValue.csv}"
+##利用程序将数据格式化并变更其文件名
+gawk -f 日K线数据格式化 "$filename" >"${filename/%Table.xls/InsertValue.csv}"
 filename="${filename/%Table.xls/InsertValue.csv}"
 ##利用程序将数据插入
 echo "录入数据"
@@ -46,6 +47,7 @@ mysql -uroot -p < "$filename"
 #更新除权除息
 if [ $1 = "有除权除息" ]
 then
+#除权除息文件所在的位置
 filename="/home/acer/桌面/迅雷下载/"`date +%F`.csv
 if [ -e  $filename ]
 then
@@ -64,7 +66,7 @@ fi
 #
 #确定卖出的股票
 echo "卖出"
-sell4 -auto
+sell -auto
 #导出卖出的股票
  mysql_query_output 是 "/home/acer/桌面/股票/maichu.txt" "select distinct mid(stockname,3,6) from MaiChuBiao where riqi=curdate()"
 
@@ -82,6 +84,6 @@ sell4 -auto
 
 #确定买入的股票
 echo "买入"
-Qushi-Buy2 -auto
+Qushi-Buy -auto
 #导出买入的股票
  mysql_query_output 是 "/home/acer/桌面/股票/mairu.txt" "select distinct mid(stockname,3,6) from MaiRuBiao where riqi=curdate()"
