@@ -1,3 +1,8 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+
 import matplotlib.pyplot as plt
 import matplotlib.finance as finan
 import pandas as pd
